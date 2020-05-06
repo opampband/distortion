@@ -6,7 +6,7 @@ gain = hslider("gain", 1, 0, 10, 0.1) * 10;
 vol = hslider("post-distortion volume", 0.3, 0, 1, 0.01);
 
 // The gain here ----------------------------v makes it sound better
-transferFunction = _ <: /(gain * _, sqrt(1 + gain * ^(gain * _, 2)));
+transferFunction = _ <: (gain * _)/(sqrt(1 + gain * ^(gain * _, 2)));
 
 // Takes the derivative of a signal by convolution
 derivative = fi.conv((1, -1));
