@@ -31,6 +31,8 @@ vol = hslider("post-distortion volume", 0.1, 0, 1, 0.01);
 // (distortion + speaker)
 amp =
     *(inputGain)
+    // LPF before hard clipping makes it less harsh
+    : fi.resonlp(3000, 1, 1)
     : *(fuzzGain)
     : hardClip(1)
     : *(tubeGain)
