@@ -38,6 +38,7 @@ amp =
     : *(tubeGain)
     : transferFunction(_, derivative(_), wobble)
     : *(vol)
+    : fi.dcblocker
     : ef.speakerbp(100, 5000);
 
 feedback = hslider("feedback", 0.01, 0, 0.1, 0.001);
