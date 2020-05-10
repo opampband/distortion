@@ -9,21 +9,18 @@ with {
     lo = (-1) * ceiling;
 };
 
-// gain before any effects
-inputGain = hslider("input gain", 1, 1, 10, 0.01) * 10 - 9;
 // gain before hard clipping stage
-fuzzGain = hslider("fuzz gain", 1, 1, 10, 0.01) * 10 - 9;
+fuzzGain = hslider("[0]fuzz gain", 1, 1, 10, 0.01) * 10 - 9 : ba.db2linear;
 // gain before soft clipping stage
-tubeGain = hslider("tube gain", 1, 1, 10, 0.01) * 20 - 19;
-// volume after distortion
-vol = hslider("post-distortion volume", 0.1, 0, 1, 0.01);
+tubeGain = hslider("[1]tube gain", 1, 1, 10, 0.01) * 10 - 9 : ba.db2linear;
+// gain after distortion
+vol = hslider("[2]post-distortion gain (dB)", -10, -30, 0, 0.01) : ba.db2linear;
 
 // The entire guitar amp
 // (distortion + speaker)
 amp =
-    *(inputGain)
     // LPF before hard clipping makes it less harsh
-    : fi.resonlp(3000, 1, 1)
+    fi.resonlp(3000, 1, 1)
     : *(fuzzGain)
     : hardClip(1)
     : *(tubeGain)
@@ -32,8 +29,8 @@ amp =
     : fi.dcblocker
     : ef.speakerbp(100, 5000);
 
-feedback = hslider("feedback", 0.01, 0, 0.1, 0.001);
-delay = hslider("delay (samples)", 1, 0, 100, 10);
+feedback = hslider("[3]feedback (dB)", -50, -50, 0, 1) : ba.db2linear;
+delay = hslider("[4]delay (ms)", 0, 0, 100, 0.1) : /(1000) : ba.sec2samp;
 
 process = amp(+(_)) ~ (@(delay) : *(feedback));
 //process = amp(os.osc(440));
