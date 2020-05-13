@@ -15,6 +15,7 @@ A digital guitar distortion effect. Written in [Faust](https://faust.grame.fr/).
 - Experiment with uneven distortion across different frequency bands
 - Add room reverb before feeding back to amp
   - Perhaps try to figure out what the impulse response of a sympathetically vibrating string would be
+- Add checkbox for feedback so it can easily be killed
 - Experiment with multiple gain stages
 - Experiment with cabinet impulse responses
 - Build in a plugin format (probably VST)
